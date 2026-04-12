@@ -3,7 +3,23 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const Astronomy = require('astronomy-engine');
+
+let Astronomy;
+try {
+  Astronomy = require('astronomy-engine');
+  console.log('[OK] astronomy-engine loaded successfully');
+} catch (e) {
+  console.error('[WARN] astronomy-engine failed to load:', e.message);
+  Astronomy = null;
+}
+
+// Prevent unhandled errors from crashing the server
+process.on('uncaughtException', (err) => {
+  console.error('[UNCAUGHT]', err.stack || err);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[UNHANDLED REJECTION]', reason);
+});
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
@@ -279,6 +295,9 @@ function computeLunarNodes(jd) {
  * using astronomy-engine (USNO-grade accuracy, ~1 arcminute).
  */
 function getPlanetPositions(astroTime) {
+  if (!Astronomy) {
+    throw new Error('astronomy-engine is not available on this server. Please check deployment dependencies.');
+  }
   const sunPos = Astronomy.SunPosition(astroTime);
   const moonPos = Astronomy.EclipticGeoMoon(astroTime);
 
@@ -650,6 +669,9 @@ function generateLifePrediction({ lagnaRashi, moonRashi, nakshatra, dashaLord, g
    Uses astronomy-engine for real positions
    ═══════════════════════════════════════════════ */
 async function buildVedicKundli({ fullName, gender, dob, tob, birthPlace, birthLat, birthLon }) {
+  if (!Astronomy) {
+    throw new Error('Astronomy engine is not available. Please ensure astronomy-engine is installed (npm install).');
+  }
   const [yearStr, monthStr, dayStr] = dob.split('-');
   const year = Number(yearStr);
   const month = Number(monthStr);
@@ -952,8 +974,13 @@ const server = http.createServer(async (req, res) => {
       sendJson(res, 200, result);
       return;
     } catch (err) {
-      const message = err && err.message === 'Payload too large' ? err.message : 'Invalid request body.';
-      sendJson(res, 400, { error: message });
+      console.error('[/api/predict ERROR]', err.stack || err.message || err);
+      const message = (err && err.message) || 'Server error generating kundli.';
+      try {
+        sendJson(res, 500, { error: message });
+      } catch (sendErr) {
+        console.error('[/api/predict] Failed to send error response:', sendErr.message);
+      }
       return;
     }
   }
