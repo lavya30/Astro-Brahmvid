@@ -1,0 +1,2148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astro Brahmvid – Your Cosmic Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<style>
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  :root {
+    --gold: #C9960A;
+    --gold-light: #F0C842;
+    --gold-pale: #FDF3D0;
+    --deep: #0E0B1A;
+    --deep2: #160F2B;
+    --mid: #1E1639;
+    --surface: #261D47;
+    --surface2: #2E2355;
+    --indigo: #4A3D8F;
+    --violet: #7B5EA7;
+    --soft: #C2BAE8;
+    --text: #EDE8FF;
+    --muted: #9A8FC0;
+    --accent: #E8537A;
+    --teal: #3DBDB0;
+    --border: rgba(201,150,10,0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO ORANGE-YELLOW BACKGROUND */
+  .hero-bg {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(160deg, #FF6B00 0%, #FF9500 30%, #FFD000 65%, #FFEA70 100%);
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(255,120,0,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 0%, rgba(255,255,255,0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-bg .hero-eyebrow { color: rgba(80,30,0,0.9); }
+  .hero-bg .hero-eyebrow::before,
+  .hero-bg .hero-eyebrow::after { background: rgba(80,30,0,0.5); }
+  .hero-bg h1 { color: #2A0D00; text-shadow: 0 2px 20px rgba(255,200,0,0.4); }
+  .hero-bg h1 span { color: #7A2E00; }
+  .hero-bg .hero-sub { color: rgba(60,20,0,0.82); }
+  .hero-bg .btn-primary {
+    background: linear-gradient(135deg, #7A2E00, #C84B00);
+    color: #FFE8B0;
+    box-shadow: 0 4px 20px rgba(120,40,0,0.4);
+  }
+  .hero-bg .btn-primary:hover { box-shadow: 0 8px 30px rgba(120,40,0,0.55); }
+  .hero-bg .btn-outline { border-color: rgba(80,30,0,0.4); color: rgba(60,20,0,0.85); }
+  .hero-bg .btn-outline:hover { border-color: #7A2E00; color: #7A2E00; background: rgba(255,255,255,0.2); }
+  .hero-bg .zodiac-chip { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.45); }
+  .hero-bg .zodiac-chip:hover { background: rgba(255,255,255,0.45); border-color: rgba(80,30,0,0.5); }
+  .hero-bg .zodiac-name { color: rgba(60,20,0,0.75); }
+  .hero-bg .divider { background: linear-gradient(90deg, transparent, rgba(80,30,0,0.2), rgba(80,30,0,0.5), rgba(80,30,0,0.2), transparent); }
+  .hero-bg .divider-star { background: transparent; color: rgba(80,30,0,0.7); }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 38% 8%, rgba(240,200,66,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 78% 12%, rgba(240,200,66,0.5) 0%, transparent 100%),
+      radial-gradient(2px 2px at 18% 70%, rgba(240,200,66,0.4) 0%, transparent 100%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(74,61,143,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 0% 50%, rgba(123,94,167,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 100% 50%, rgba(61,189,176,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,11,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 80px;
+  }
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  .nav-logo-symbol {
+    font-size: 1.6rem;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--soft);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-links a:hover {
+    color: var(--gold-light);
+    background: rgba(201,150,10,0.1);
+  }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    color: var(--deep) !important;
+    font-weight: 600 !important;
+    padding: 0.45rem 1.1rem !important;
+    border-radius: 20px !important;
+  }
+  .nav-cta:hover {
+    background: var(--gold-light) !important;
+    color: var(--deep) !important;
+  }
+
+  /* RAJESH GOEL NAV PROFILE */
+  .nav-astrologer {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(201,150,10,0.08);
+    border: 1px solid rgba(201,150,10,0.35);
+    border-radius: 40px;
+    padding: 0.35rem 0.9rem 0.35rem 0.35rem;
+    cursor: pointer;
+    transition: all 0.22s;
+    text-decoration: none;
+    margin-left: 0.75rem;
+    flex-shrink: 0;
+  }
+  .nav-astrologer:hover {
+    background: rgba(201,150,10,0.18);
+    border-color: var(--gold);
+    box-shadow: 0 0 16px rgba(201,150,10,0.25);
+  }
+  .nav-astrologer-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7B5EA7, #4A3D8F);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .nav-astrologer-dot {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 9px;
+    height: 9px;
+    background: #3DBDB0;
+    border-radius: 50%;
+    border: 1.5px solid var(--deep);
+  }
+  .nav-astrologer-info { display: flex; flex-direction: column; line-height: 1.25; }
+  .nav-astrologer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .nav-astrologer-title {
+    font-size: 0.62rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .nav-astrologer-badge {
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    color: var(--deep);
+    font-size: 0.58rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-left: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+    gap: 2.5rem;
+    padding: 3rem 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-video { margin-top: 0; margin-right: 0; }
+  .hero-text { text-align: left; }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 60px rgba(201,150,10,0.3);
+  }
+  .hero h1 span {
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.15rem;
+    color: var(--soft);
+    max-width: 500px;
+    margin: 0 0 2rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  /* Hero Video */
+  .hero-video {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(201,150,10,0.15);
+    border: 2px solid rgba(255,255,255,0.15);
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .hero-video iframe, .hero-video video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: contain;
+  }
+  .hero-video-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0.8rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    pointer-events: none;
+  }
+  .audio-play-btn {
+    position: absolute;
+    bottom: 2.2rem;
+    right: 0.8rem;
+    background: rgba(0,0,0,0.55);
+    border: 1.5px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s;
+    z-index: 5;
+  }
+  .audio-play-btn:hover {
+    background: rgba(201,150,10,0.25);
+    box-shadow: 0 0 15px rgba(201,150,10,0.25);
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-text { text-align: center; }
+    .hero-sub { margin: 0 auto 2rem; }
+    .hero-buttons { justify-content: center; }
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    color: var(--deep);
+    font-weight: 600;
+    padding: 0.85rem 2rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(201,150,10,0.35);
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,150,10,0.5); }
+  .btn-outline {
+    background: transparent;
+    color: var(--soft);
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    border-radius: 30px;
+    border: 1px solid rgba(194,186,232,0.3);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(201,150,10,0.08); }
+
+  /* ZODIAC WHEEL */
+  .zodiac-bar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0 1rem 1rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .zodiac-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 0.9rem;
+    background: rgba(38,29,71,0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 68px;
+    text-decoration: none;
+  }
+  .zodiac-chip:hover {
+    background: rgba(201,150,10,0.15);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .zodiac-symbol { font-size: 1.4rem; }
+  .zodiac-name {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), var(--gold), var(--border), transparent);
+    margin: 3rem 0;
+    position: relative;
+    z-index: 1;
+  }
+  .divider-star {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: var(--deep);
+    padding: 0 0.8rem;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+
+  /* SECTIONS */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .section-header p {
+    color: var(--muted);
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  /* KUNDLI FORM */
+  .kundli-card {
+    background: linear-gradient(135deg, rgba(38,29,71,0.9), rgba(46,35,85,0.9));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201,150,10,0.1);
+  }
+  .form-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    background: rgba(14,11,26,0.5);
+    border-radius: 30px;
+    padding: 4px;
+    border: 1px solid rgba(201,150,10,0.15);
+  }
+  .form-tab {
+    flex: 1;
+    padding: 0.55rem 1rem;
+    border-radius: 26px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .form-tab.active {
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    color: var(--deep);
+    font-weight: 600;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .form-group input, .form-group select {
+    background: rgba(14,11,26,0.6);
+    border: 1px solid rgba(201,150,10,0.2);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--gold);
+  }
+  .form-group input::placeholder { color: rgba(154,143,192,0.5); }
+  .form-group select option { background: var(--deep2); }
+  .form-full { grid-column: 1 / -1; }
+  .form-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    color: var(--deep);
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .form-submit:hover { box-shadow: 0 6px 24px rgba(201,150,10,0.4); transform: translateY(-1px); }
+
+  /* SERVICE GRID */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  .service-card {
+    background: rgba(38,29,71,0.6);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+  .service-card:hover {
+    background: rgba(201,150,10,0.1);
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .service-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--soft);
+    line-height: 1.3;
+  }
+
+  /* HOROSCOPE SECTION */
+  .horo-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .horo-tab {
+    padding: 0.4rem 1rem;
+    background: rgba(38,29,71,0.6);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .horo-tab.active {
+    background: rgba(201,150,10,0.2);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  .horo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .horo-card {
+    background: rgba(38,29,71,0.6);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+  .horo-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,150,10,0.08);
+  }
+  .horo-sign-symbol { font-size: 2.2rem; margin-bottom: 0.4rem; display: block; }
+  .horo-sign-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--soft);
+    letter-spacing: 0.05em;
+  }
+  .horo-sign-date { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+
+  /* ASTROLOGER CARDS */
+  .astro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+  .astro-card {
+    background: rgba(38,29,71,0.7);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .astro-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .astro-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+    border: 2px solid var(--border);
+    position: relative;
+  }
+  .astro-online {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #3DBDB0;
+    border: 2px solid var(--deep2);
+  }
+  .astro-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .astro-specialty {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+  .astro-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .astro-rating {
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .astro-exp {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .astro-price {
+    font-size: 0.8rem;
+    color: var(--soft);
+    margin-bottom: 0.8rem;
+  }
+  .astro-price strong { color: var(--gold-light); }
+  .astro-btns { display: flex; gap: 0.5rem; }
+  .astro-btn {
+    flex: 1;
+    padding: 0.45rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .astro-btn-call {
+    background: rgba(61,189,176,0.15);
+    color: var(--teal);
+    border: 1px solid rgba(61,189,176,0.3);
+  }
+  .astro-btn-call:hover { background: rgba(61,189,176,0.25); }
+  .astro-btn-chat {
+    background: rgba(201,150,10,0.15);
+    color: var(--gold);
+    border: 1px solid var(--border);
+  }
+  .astro-btn-chat:hover { background: rgba(201,150,10,0.25); }
+
+  /* TOOLS STRIP */
+  .tools-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .tool-card {
+    background: rgba(38,29,71,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .tool-card:hover {
+    background: rgba(74,61,143,0.3);
+    border-color: rgba(194,186,232,0.4);
+    transform: translateY(-3px);
+  }
+  .tool-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .tool-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--soft);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.03em;
+  }
+  .tool-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+  /* PANCHANG */
+  .panchang-card {
+    background: linear-gradient(135deg, rgba(46,35,85,0.9), rgba(38,29,71,0.9));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .panchang-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .panchang-date {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+  }
+  .panchang-location { font-size: 0.8rem; color: var(--muted); }
+  .panchang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .panchang-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .panchang-label { font-size: 0.7rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .panchang-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .two-col-65 { display: grid; grid-template-columns: 2fr 1.3fr; gap: 2rem; }
+
+  /* MAGAZINE */
+  .magazine-list { display: flex; flex-direction: column; gap: 1rem; }
+  .mag-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem;
+    background: rgba(38,29,71,0.4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .mag-item:hover { border-color: var(--gold); background: rgba(201,150,10,0.06); }
+  .mag-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .mag-title { font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; line-height: 1.4; }
+  .mag-meta { font-size: 0.72rem; color: var(--muted); }
+
+  /* PLANETS */
+  .planets-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .planet-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 1.1rem;
+    background: rgba(38,29,71,0.6);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-width: 80px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .planet-chip:hover { border-color: var(--violet); background: rgba(123,94,167,0.15); }
+  .planet-symbol { font-size: 1.5rem; }
+  .planet-name { font-size: 0.7rem; font-weight: 600; color: var(--soft); letter-spacing: 0.05em; text-transform: uppercase; }
+  .planet-pos { font-size: 0.65rem; color: var(--muted); }
+
+  /* STATS BANNER */
+  .stats-banner {
+    background: linear-gradient(135deg, rgba(74,61,143,0.3), rgba(123,94,167,0.2));
+    border: 1px solid rgba(123,94,167,0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .stat-item {}
+  .stat-number {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: rgba(10,7,18,0.9);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem 1.5rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+  .footer-brand h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+  }
+  .footer-brand p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,150,10,0.1);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* Scroll animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+
+  /* PREDICTION RESULT PANEL */
+  .prediction-result {
+    margin-top: 1.5rem;
+    background: rgba(14,11,26,0.65);
+    border: 1px solid rgba(201,150,10,0.25);
+    border-radius: 16px;
+    padding: 1.5rem;
+    line-height: 1.5;
+    display: none;
+  }
+  .prediction-result.is-visible { display: block; animation: fadeUp 0.5s ease both; }
+  .prediction-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .prediction-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.7rem; }
+  .prediction-text { color: var(--text); font-size: 0.92rem; line-height: 1.65; }
+  .prediction-remedy { margin-top: 0.6rem; font-size: 0.86rem; color: var(--soft); }
+
+  /* Vedic sections inside result */
+  .vedic-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(201,150,10,0.15); }
+  .vedic-section-title {
+    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .vedic-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(201,150,10,0.2); }
+  .vedic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .vedic-item {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.5rem 0.7rem; background: rgba(38,29,71,0.5);
+    border-radius: 8px; border: 1px solid rgba(201,150,10,0.1);
+  }
+  .vedic-label { font-size: 0.68rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .vedic-value { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+  .vedic-value-highlight { color: var(--gold-light); font-weight: 600; }
+
+  /* Kundli Chart SVG */
+  .kundli-chart-container { display: flex; justify-content: center; padding: 0.5rem 0; }
+  .kundli-chart-svg { width: 100%; max-width: 360px; height: auto; }
+  .kundli-line { stroke: var(--gold); stroke-width: 1.5; fill: none; opacity: 0.5; }
+  .kundli-house-label { font-size: 11px; fill: var(--muted); font-family: 'DM Sans', sans-serif; }
+  .kundli-rashi-label { font-size: 16px; fill: var(--gold-light); }
+  .kundli-planet-label { font-size: 12px; fill: #fff; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+  .kundli-asc-label { font-size: 10px; fill: var(--accent); font-weight: 600; }
+
+  /* Dasha timeline */
+  .dasha-timeline { display: flex; flex-direction: column; gap: 0.4rem; }
+  .dasha-entry {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.5rem 0.7rem; border-radius: 8px;
+    background: rgba(38,29,71,0.3); border: 1px solid rgba(201,150,10,0.08);
+    font-size: 0.85rem;
+  }
+  .dasha-entry.active-dasha { background: rgba(201,150,10,0.12); border-color: var(--gold); }
+  .dasha-planet { font-weight: 600; color: var(--gold-light); min-width: 60px; }
+  .dasha-years { color: var(--muted); min-width: 50px; }
+  .dasha-period { color: var(--soft); flex: 1; }
+
+  /* Dosha badge */
+  .dosha-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600; }
+  .dosha-present { background: rgba(232,83,122,0.15); color: var(--accent); border: 1px solid rgba(232,83,122,0.3); }
+  .dosha-absent { background: rgba(61,189,176,0.15); color: var(--teal); border: 1px solid rgba(61,189,176,0.3); }
+
+  /* Active highlight for clickable items */
+  .clickable-active { border-color: var(--gold) !important; background: rgba(201,150,10,0.12) !important; box-shadow: 0 0 12px rgba(201,150,10,0.15); }
+
+  /* inline result boxes for horo, planets, tools */
+  .inline-result {
+    margin-top: 1.2rem; padding: 1.2rem; background: rgba(38,29,71,0.6);
+    border: 1px solid var(--border); border-radius: 14px;
+  }
+  .inline-result h3 { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .inline-result p { font-size: 0.88rem; color: var(--soft); line-height: 1.6; }
+
+  /* Life Prediction Sections */
+  .life-pred-section { margin-top: 0.5rem; }
+  .life-pred-intro {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  .life-pred-card {
+    background: rgba(38,29,71,0.45);
+    border: 1px solid rgba(201,150,10,0.12);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .life-pred-card:hover {
+    border-color: rgba(201,150,10,0.35);
+    box-shadow: 0 4px 20px rgba(201,150,10,0.06);
+  }
+  .life-pred-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .life-pred-icon { font-size: 1.15rem; }
+  .life-pred-body {
+    font-size: 0.88rem;
+    color: var(--soft);
+    line-height: 1.75;
+    text-align: justify;
+  }
+
+  .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* City autocomplete dropdown */
+  .autocomplete-wrapper { position: relative; }
+  .autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(22, 15, 43, 0.98);
+    border: 1px solid var(--gold);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    display: none;
+  }
+  .autocomplete-dropdown.open { display: block; }
+  .autocomplete-item {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid rgba(201,150,10,0.08);
+  }
+  .autocomplete-item:last-child { border-bottom: none; }
+  .autocomplete-item:hover, .autocomplete-item.focused {
+    background: rgba(201,150,10,0.15);
+  }
+  .autocomplete-city { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+  .autocomplete-detail { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+  .autocomplete-loading {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+
+  @media (max-width: 768px) {
+    .horo-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .two-col-65 { grid-template-columns: 1fr; }
+    .stats-banner { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+    .vedic-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Nav contact info */
+  .nav-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.75rem;
+    flex-shrink: 0;
+    background: rgba(201,150,10,0.06);
+    border: 1px solid rgba(201,150,10,0.3);
+    border-radius: 14px;
+    padding: 0.45rem 1rem;
+  }
+  .nav-contact-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .nav-contact-head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .nav-contact-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--deep);
+    background: linear-gradient(135deg, var(--gold), #E8A820);
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 0 10px rgba(201,150,10,0.25);
+    flex-shrink: 0;
+  }
+  .nav-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .nav-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    color: var(--soft);
+    font-size: 0.72rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-contact-item:hover { color: var(--gold-light); }
+  .nav-contact-icon { font-size: 0.75rem; }
+  .nav-contact-text { letter-spacing: 0.02em; }
+  .nav-contact-sep { color: rgba(201,150,10,0.3); font-size: 0.7rem; }
+  @media (max-width: 768px) {
+    .nav-contact-text { display: none; }
+    .nav-contact { gap: 0.25rem; padding: 0.35rem 0.6rem; }
+    .nav-contact-sep { display: none; }
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#top" class="nav-logo">
+    <span class="nav-logo-symbol">☽</span> Astro Brahmvid
+  </a>
+  <ul class="nav-links">
+    <li><a href="#horoscope-section">Horoscope</a></li>
+    <li><a href="#kundli-section">Kundli</a></li>
+    <li><a href="#panchang-section">Panchang</a></li>
+    <li><a href="#astrology-section">Astrology</a></li>
+    <li><a href="#occult-section">Occult</a></li>
+    <li><a href="#compatibility-section">Compatibility</a></li>
+    <li><a href="#calculators-section">Calculators</a></li>
+    <li><a href="https://wa.me/918920976178" target="_blank" class="nav-cta">✦ Chat with Astrologer</a></li>
+  </ul>
+  <div class="nav-contact">
+    <div class="nav-contact-head">
+      <span class="nav-contact-logo" aria-label="Rajessh Goel logo">RG</span>
+      <span class="nav-contact-name">Rajessh Goel</span>
+    </div>
+    <div class="nav-contact-row">
+      <a href="tel:+918920976178" class="nav-contact-item" title="Call Rajessh Goel">
+        <span class="nav-contact-icon">📞</span>
+        <span class="nav-contact-text">8920976178</span>
+      </a>
+      <span class="nav-contact-sep">|</span>
+      <a href="mailto:rajeshgoel246@gmail.com" class="nav-contact-item" title="Email Rajessh Goel">
+        <span class="nav-contact-icon">✉</span>
+        <span class="nav-contact-text">rajeshgoel246@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO BG WRAPPER -->
+<div class="hero-bg">
+
+<!-- HERO -->
+<div class="hero fade-up">
+  <div class="hero-text">
+    <div class="hero-eyebrow">✦ Vedic Astrology &amp; AI-Powered Insights ✦</div>
+    <h1>Discover the Wisdom<br><span>Written in the Stars</span></h1>
+    <p class="hero-sub">Your complete guide to Vedic astrology, birth charts, horoscopes, and cosmic remedies — powered by ancient wisdom and modern AI.</p>
+    <div class="hero-buttons">
+      <a href="#kundli-section" class="btn-primary">✦ Get Free Kundli</a>
+      <a href="#horoscope-section" class="btn-outline">Today's Horoscope →</a>
+    </div>
+  </div>
+  <div class="hero-video">
+    <video id="mantra-video" autoplay muted loop playsinline>
+      <source src="/mantra2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <audio id="mantra-audio" loop preload="auto">
+      <source src="/mantra_audio.mp3" type="audio/mpeg">
+    </audio>
+    <button class="audio-play-btn" id="audio-toggle">🔊 Play Mantra</button>
+    <div class="hero-video-label">🙏 Sacred Mantra</div>
+  </div>
+</div>
+
+<!-- ZODIAC BAR -->
+<div class="zodiac-bar fade-up delay-1">
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♈</span><span class="zodiac-name">Aries</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♉</span><span class="zodiac-name">Taurus</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♊</span><span class="zodiac-name">Gemini</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♋</span><span class="zodiac-name">Cancer</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♌</span><span class="zodiac-name">Leo</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♍</span><span class="zodiac-name">Virgo</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♎</span><span class="zodiac-name">Libra</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♏</span><span class="zodiac-name">Scorpio</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♐</span><span class="zodiac-name">Sagittarius</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♑</span><span class="zodiac-name">Capricorn</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♒</span><span class="zodiac-name">Aquarius</span></a>
+  <a href="#" class="zodiac-chip"><span class="zodiac-symbol">♓</span><span class="zodiac-name">Pisces</span></a>
+</div>
+
+<div class="divider" style="max-width:1100px;margin:2rem auto;"><span class="divider-star">✦</span></div>
+
+</div><!-- end hero-bg -->
+
+<!-- KUNDLI FORM + PANCHANG -->
+<div class="section" id="kundli-section">
+  <div class="two-col-65">
+    <!-- KUNDLI FORM -->
+    <div>
+      <div class="section-header" style="text-align:left;margin-bottom:1.5rem;">
+        <div class="section-label">Free Birth Chart</div>
+        <h2>Generate Your Kundli</h2>
+      </div>
+      <div class="kundli-card">
+        <div class="form-tabs">
+          <div class="form-tab active" onclick="setTab(this,'kundli')">Kundli / Birth Chart</div>
+          <div class="form-tab" id="compatibility-section" onclick="setTab(this,'matching')">Kundli Matching</div>
+          <div class="form-tab" onclick="setTab(this,'panchang')">Panchang</div>
+        </div>
+        <form id="kundli-form">
+        <div class="form-grid" id="form-kundli">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="tob">Time of Birth</label>
+            <input type="time" id="tob" required>
+          </div>
+          <div class="form-group form-full">
+            <label for="birthPlace">Place of Birth</label>
+            <div class="autocomplete-wrapper">
+              <input type="text" id="birthPlace" placeholder="Start typing a city name..." required autocomplete="off">
+              <div class="autocomplete-dropdown" id="city-dropdown"></div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="form-submit" id="kundli-submit">✦ Generate Kundli</button>
+        </form>
+        <div class="prediction-result" id="prediction-result"></div>
+      </div>
+    </div>
+
+    <!-- PANCHANG -->
+    <div id="panchang-section">
+      <div class="section-header" style="text-align:left;margin-bottom:1.5rem;">
+        <div class="section-label">Today's Cosmic Calendar</div>
+        <h2>Panchang</h2>
+      </div>
+      <div class="panchang-card">
+        <div class="panchang-header">
+          <div>
+            <div class="panchang-date" id="panchang-date">Saturday, 11 April 2026</div>
+            <div class="panchang-location">📍 Mumbai, Maharashtra</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:2rem;">☽</div>
+          </div>
+        </div>
+        <div class="panchang-grid">
+          <div class="panchang-item">
+            <span class="panchang-label">Tithi</span>
+            <span class="panchang-value">Chaturdashi</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Nakshatra</span>
+            <span class="panchang-value">Revati</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Yoga</span>
+            <span class="panchang-value">Shubha</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Karana</span>
+            <span class="panchang-value">Vishti (Bhadra)</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Sunrise</span>
+            <span class="panchang-value">06:14 AM</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Sunset</span>
+            <span class="panchang-value">06:49 PM</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Rahu Kaal</span>
+            <span class="panchang-value" style="color:#E8537A;">09:00 – 10:30 AM</span>
+          </div>
+          <div class="panchang-item">
+            <span class="panchang-label">Moon Sign</span>
+            <span class="panchang-value">Pisces ♓</span>
+          </div>
+        </div>
+        <a href="#" style="display:block;margin-top:1.2rem;text-align:center;font-size:0.8rem;color:var(--gold);text-decoration:none;opacity:0.8;">View Full Panchang →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOROSCOPE SECTION -->
+<div class="section" id="horoscope-section">
+  <div class="section-header">
+    <div class="section-label">Daily, Weekly &amp; Monthly</div>
+    <h2>Your Horoscope</h2>
+    <p>Choose your sign and discover what the cosmos has in store</p>
+  </div>
+  <div class="horo-tabs">
+    <div class="horo-tab active">Today</div>
+    <div class="horo-tab">Tomorrow</div>
+    <div class="horo-tab">This Week</div>
+    <div class="horo-tab">Weekly Love</div>
+    <div class="horo-tab">This Month</div>
+    <div class="horo-tab">Year 2026</div>
+  </div>
+  <div class="horo-grid">
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♈</span><div class="horo-sign-name">Aries</div><div class="horo-sign-date">Mar 21 – Apr 19</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♉</span><div class="horo-sign-name">Taurus</div><div class="horo-sign-date">Apr 20 – May 20</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♊</span><div class="horo-sign-name">Gemini</div><div class="horo-sign-date">May 21 – Jun 20</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♋</span><div class="horo-sign-name">Cancer</div><div class="horo-sign-date">Jun 21 – Jul 22</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♌</span><div class="horo-sign-name">Leo</div><div class="horo-sign-date">Jul 23 – Aug 22</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♍</span><div class="horo-sign-name">Virgo</div><div class="horo-sign-date">Aug 23 – Sep 22</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♎</span><div class="horo-sign-name">Libra</div><div class="horo-sign-date">Sep 23 – Oct 22</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♏</span><div class="horo-sign-name">Scorpio</div><div class="horo-sign-date">Oct 23 – Nov 21</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♐</span><div class="horo-sign-name">Sagittarius</div><div class="horo-sign-date">Nov 22 – Dec 21</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♑</span><div class="horo-sign-name">Capricorn</div><div class="horo-sign-date">Dec 22 – Jan 19</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♒</span><div class="horo-sign-name">Aquarius</div><div class="horo-sign-date">Jan 20 – Feb 18</div></a>
+    <a href="#" class="horo-card"><span class="horo-sign-symbol">♓</span><div class="horo-sign-name">Pisces</div><div class="horo-sign-date">Feb 19 – Mar 20</div></a>
+  </div>
+  <div class="inline-result" id="horo-result" style="display:none;"></div>
+</div>
+
+
+<!-- PLANETS STRIP -->
+<div class="section" id="astrology-section">
+  <div class="section-header">
+    <div class="section-label">Current Planetary Positions</div>
+    <h2>Planets Today</h2>
+  </div>
+  <div class="planets-row">
+    <a href="#" class="planet-chip"><span class="planet-symbol">☉</span><span class="planet-name">Sun</span><span class="planet-pos">Aries 21°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">☽</span><span class="planet-name">Moon</span><span class="planet-pos">Pisces 14°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">☿</span><span class="planet-name">Mercury</span><span class="planet-pos">Aries 4° ℞</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♀</span><span class="planet-name">Venus</span><span class="planet-pos">Pisces 29°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♂</span><span class="planet-name">Mars</span><span class="planet-pos">Cancer 6°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♃</span><span class="planet-name">Jupiter</span><span class="planet-pos">Gemini 18°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♄</span><span class="planet-name">Saturn</span><span class="planet-pos">Pisces 23°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♅</span><span class="planet-name">Rahu</span><span class="planet-pos">Aquarius 7°</span></a>
+    <a href="#" class="planet-chip"><span class="planet-symbol">♆</span><span class="planet-name">Ketu</span><span class="planet-pos">Leo 7°</span></a>
+  </div>
+  <div class="inline-result" id="planet-result" style="display:none;"></div>
+</div>
+
+
+<!-- TOOLS / CALCULATORS -->
+<div id="occult-section"></div>
+<div class="section" id="calculators-section">
+  <div class="section-header">
+    <div class="section-label">Astrological Tools</div>
+    <h2>Calculators &amp; Special Reports</h2>
+  </div>
+  <div class="tools-strip">
+    <a href="#" class="tool-card">
+      <span class="tool-icon">⬆️</span>
+      <div class="tool-title">Ascendant Calculator</div>
+      <div class="tool-desc">Find your rising sign accurately</div>
+    </a>
+    <a href="#" class="tool-card">
+      <span class="tool-icon">🌙</span>
+      <div class="tool-title">Moon Sign Calculator</div>
+      <div class="tool-desc">Discover your Rashi / Moon sign</div>
+    </a>
+    <a href="#" class="tool-card">
+      <span class="tool-icon">🔢</span>
+      <div class="tool-title">Numerology Calculator</div>
+      <div class="tool-desc">Life path, expression &amp; soul numbers</div>
+    </a>
+    <a href="#" class="tool-card">
+      <span class="tool-icon">❤️</span>
+      <div class="tool-title">Love Compatibility</div>
+      <div class="tool-desc">Check your match with any sign</div>
+    </a>
+    <a href="#" class="tool-card">
+      <span class="tool-icon">🌅</span>
+      <div class="tool-title">Sunrise &amp; Sunset</div>
+      <div class="tool-desc">Daily sun timings for your city</div>
+    </a>
+    <a href="#" class="tool-card">
+      <span class="tool-icon">⏰</span>
+      <div class="tool-title">Choghadiya</div>
+      <div class="tool-desc">Auspicious muhurat timings</div>
+    </a>
+  </div>
+  <div class="inline-result" id="tool-result" style="display:none;"></div>
+</div>
+
+<!-- STATS BANNER -->
+<div class="section">
+  <div class="stats-banner">
+    <div class="stat-item">
+      <span class="stat-number">1.2M+</span>
+      <div class="stat-label">Daily Active Users</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">6.75 Cr</span>
+      <div class="stat-label">App Downloads</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">700K+</span>
+      <div class="stat-label">Registered Astrologers</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">10 Cr+</span>
+      <div class="stat-label">AI Answers Delivered</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="max-width:1100px;margin:2rem auto;"><span class="divider-star">☽</span></div>
+
+<!-- FOOTER -->
+<footer id="chat-section">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>☽ Astro Brahmvid</h3>
+      <p>Your complete destination for Vedic astrology, AI-powered horoscopes, birth charts, and cosmic guidance. Combining 5000 years of ancient wisdom with modern technology.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Astrology</h4>
+      <ul>
+        <li><a href="#">Free Kundli</a></li>
+        <li><a href="#">Horoscope Matching</a></li>
+        <li><a href="#">Daily Horoscope</a></li>
+        <li><a href="#">Lal Kitab</a></li>
+        <li><a href="#">KP Astrology</a></li>
+        <li><a href="#">Learn Astrology</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Occult</h4>
+      <ul>
+        <li><a href="#">Tarot Reading</a></li>
+        <li><a href="#">Numerology</a></li>
+        <li><a href="#">Palmistry</a></li>
+        <li><a href="#">Vastu Shastra</a></li>
+        <li><a href="#">Chinese Astrology</a></li>
+        <li><a href="#">Crystal Therapy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Talk to Astrologer</a></li>
+        <li><a href="#">AstroVeda Shop</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms &amp; Conditions</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Astro Brahmvid. All rights reserved.</span>
+    <span style="color:var(--muted);">✦ Where Ancient Wisdom Meets the Modern World ✦</span>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    const dateEl = document.getElementById('panchang-date');
+    if (!dateEl) return;
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('en-IN', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════
+     Mantra Audio + Video Sync
+     ═══════════════════════════════════════════════ */
+  (function() {
+    const video = document.getElementById('mantra-video');
+    const audio = document.getElementById('mantra-audio');
+    const btn = document.getElementById('audio-toggle');
+    let isPlaying = false;
+    let usingFallbackAudio = false;
+    if (!video || !btn) return;
+    const hasEmbeddedAudio = () =>
+      (video.mozHasAudio === true) ||
+      (typeof video.webkitAudioDecodedByteCount === 'number' && video.webkitAudioDecodedByteCount > 0) ||
+      (video.audioTracks && video.audioTracks.length > 0);
+
+    btn.addEventListener('click', async () => {
+      if (!isPlaying) {
+        // Use embedded audio when available; otherwise fallback to external mantra track.
+        usingFallbackAudio = !hasEmbeddedAudio() && !!audio;
+        video.muted = usingFallbackAudio;
+        video.volume = 1;
+        await video.play().catch(() => {});
+        if (usingFallbackAudio && audio) {
+          audio.currentTime = 0;
+          await audio.play().catch(() => {});
+        }
+        btn.textContent = '🔇 Mute Mantra';
+        isPlaying = true;
+      } else {
+        video.muted = true;
+        if (audio) audio.pause();
+        btn.textContent = '🔊 Play Mantra';
+        isPlaying = false;
+      }
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════
+     Tab switching for Kundli / Matching / Panchang
+     ═══════════════════════════════════════════════ */
+  function setTab(el, id) {
+    document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  /* Smooth-scroll links (uses Lenis) */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = a.getAttribute('href');
+      if (target.length > 1) {
+        const el = document.querySelector(target);
+        if (el) {
+          e.preventDefault();
+          if (window.lenis) {
+            window.lenis.scrollTo(el, { offset: -20, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+    });
+  });
+
+  /* ═══════════════════════════════════════════════
+     VEDIC KUNDLI FORM → API → RENDER
+     ═══════════════════════════════════════════════ */
+  const kundliForm = document.getElementById('kundli-form');
+  const submitBtn = document.getElementById('kundli-submit');
+  const resultEl = document.getElementById('prediction-result');
+
+  /* North Indian Kundli Chart SVG */
+  function buildKundliChartSVG(houses) {
+    const W = 360, H = 360;
+    const cx = W / 2, cy = H / 2;
+    const pad = 10;
+    const TL = `${pad},${pad}`, TR = `${W-pad},${pad}`, BR = `${W-pad},${H-pad}`, BL = `${pad},${H-pad}`;
+    const TM = `${cx},${pad}`, RM = `${W-pad},${cy}`, BM = `${cx},${H-pad}`, LM = `${pad},${cy}`;
+    const DT = `${cx},${pad+85}`, DR = `${W-pad-85},${cy}`, DB = `${cx},${H-pad-85}`, DL = `${pad+85},${cy}`;
+    const C = `${cx},${cy}`;
+
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="kundli-chart-svg">`;
+    svg += `<rect x="${pad}" y="${pad}" width="${W-2*pad}" height="${H-2*pad}" class="kundli-line"/>`;
+    svg += `<line x1="${pad}" y1="${pad}" x2="${W-pad}" y2="${H-pad}" class="kundli-line"/>`;
+    svg += `<line x1="${W-pad}" y1="${pad}" x2="${pad}" y2="${H-pad}" class="kundli-line"/>`;
+    svg += `<polygon points="${TM} ${RM} ${BM} ${LM}" class="kundli-line"/>`;
+
+    const houseRegions = [
+      { h: 1,  cx: cx,      cy: cy - 115 },
+      { h: 2,  cx: cx - 75,  cy: cy - 95 },
+      { h: 3,  cx: cx - 115, cy: cy - 45 },
+      { h: 4,  cx: cx - 115, cy: cy },
+      { h: 5,  cx: cx - 115, cy: cy + 45 },
+      { h: 6,  cx: cx - 75,  cy: cy + 95 },
+      { h: 7,  cx: cx,      cy: cy + 115 },
+      { h: 8,  cx: cx + 75,  cy: cy + 95 },
+      { h: 9,  cx: cx + 115, cy: cy + 45 },
+      { h: 10, cx: cx + 115, cy: cy },
+      { h: 11, cx: cx + 75,  cy: cy - 45 },
+      { h: 12, cx: cx + 75,  cy: cy - 95 }
+    ];
+
+    houses.forEach((house, i) => {
+      const region = houseRegions[i];
+      if (!region) return;
+      const rx = region.cx, ry = region.cy;
+      svg += `<text x="${rx}" y="${ry - 12}" text-anchor="middle" class="kundli-house-label">H${house.house}</text>`;
+      svg += `<text x="${rx}" y="${ry + 4}" text-anchor="middle" class="kundli-rashi-label">${house.rashiSymbol}</text>`;
+      if (house.planets.length > 0) {
+        svg += `<text x="${rx}" y="${ry + 18}" text-anchor="middle" class="kundli-planet-label">${house.planets.join(' ')}</text>`;
+      }
+      if (house.house === 1) {
+        svg += `<text x="${rx + 30}" y="${ry - 8}" text-anchor="start" class="kundli-asc-label">Asc</text>`;
+      }
+    });
+
+    svg += `<text x="${cx}" y="${cy + 4}" text-anchor="middle" style="font-size:10px;fill:var(--muted);font-family:'Cinzel',serif;">Rashi Chart</text>`;
+    svg += `</svg>`;
+    return svg;
+  }
+
+  /* Render full Vedic Kundli result */
+  function renderPrediction(data) {
+    resultEl.classList.add('is-visible');
+
+    const doshaHTML = data.mangalDosha
+      ? `<span class="dosha-badge dosha-present">⚠ Mangal Dosha Present</span>`
+      : `<span class="dosha-badge dosha-absent">✓ No Mangal Dosha</span>`;
+
+    const dashaHTML = data.dashaTimeline.map(d => {
+      const isActive = d.planet === data.currentDasha;
+      return `<div class="dasha-entry${isActive ? ' active-dasha' : ''}">
+        <span class="dasha-planet">${d.planet}</span>
+        <span class="dasha-years">${d.years} yrs</span>
+        <span class="dasha-period">${d.start} – ${d.end}</span>
+        ${isActive ? '<span style="color:var(--gold);font-size:0.7rem;">◄ Current</span>' : ''}
+      </div>`;
+    }).join('');
+
+    const chartSVG = buildKundliChartSVG(data.houses);
+
+    resultEl.innerHTML = `
+      <div class="prediction-title">✦ Vedic Janma Kundli ✦</div>
+      <div class="prediction-meta">
+        Ayanamsa: ${data.ayanamsa}° (${data.ayanamsaSystem || 'Lahiri'}) | ${data.engine || 'Sidereal'}
+        ${data.birthCoords ? `<br>Birth Location: ${data.birthCoords.place} (${data.birthCoords.lat}°N, ${data.birthCoords.lon}°E)` : ''}
+      </div>
+
+      <!-- Core Rashi / Nakshatra / Lagna -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Birth Chart Essentials</div>
+        <div class="vedic-grid">
+          <div class="vedic-item"><span class="vedic-label">Lagna (Ascendant)</span><span class="vedic-value vedic-value-highlight">${data.lagnaSymbol} ${data.lagnaRashi} · ${data.lagnaDegree}°</span></div>
+          <div class="vedic-item"><span class="vedic-label">Lagna Lord</span><span class="vedic-value">${data.lagnaLord}</span></div>
+          <div class="vedic-item"><span class="vedic-label">Chandra Rashi (Moon Sign)</span><span class="vedic-value vedic-value-highlight">${data.moonSymbol} ${data.moonRashi} · ${data.moonDegree}°</span></div>
+          <div class="vedic-item"><span class="vedic-label">Moon Sign Lord</span><span class="vedic-value">${data.moonLord}</span></div>
+          <div class="vedic-item"><span class="vedic-label">Surya Rashi (Sun Sign)</span><span class="vedic-value">${data.sunSymbol} ${data.sunRashi} · ${data.sunDegree}°</span></div>
+          <div class="vedic-item"><span class="vedic-label">Sun Sign Lord</span><span class="vedic-value">${data.sunLord}</span></div>
+          <div class="vedic-item"><span class="vedic-label">Janma Nakshatra</span><span class="vedic-value vedic-value-highlight">${data.nakshatra} (Pada ${data.pada})</span></div>
+          <div class="vedic-item"><span class="vedic-label">Nakshatra Lord / Deity</span><span class="vedic-value">${data.nakshatraLord} · ${data.nakshatraDeity}</span></div>
+          <div class="vedic-item"><span class="vedic-label">Birth Tithi</span><span class="vedic-value">${data.tithi}</span></div>
+          <div class="vedic-item"><span class="vedic-label">Yoga / Karana</span><span class="vedic-value">${data.yoga} / ${data.karana}</span></div>
+        </div>
+      </div>
+
+      <!-- North Indian Chart -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Rashi Chart (D1 — Lagna Kundli)</div>
+        <div class="kundli-chart-container">${chartSVG}</div>
+      </div>
+
+      <!-- Vimshottari Dasha -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Vimshottari Mahadasha Timeline</div>
+        <div class="dasha-timeline">${dashaHTML}</div>
+      </div>
+
+      <!-- Mangal Dosha -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Dosha Analysis</div>
+        <div style="margin-bottom:0.6rem;">${doshaHTML}</div>
+      </div>
+
+      <!-- Prediction Summary -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Detailed Vedic Reading</div>
+        <div class="prediction-text">${data.prediction}</div>
+      </div>
+
+      <!-- LIFE PREDICTION SECTIONS -->
+      ${data.lifePrediction ? `
+      <div class="vedic-section life-pred-section">
+        <div class="vedic-section-title" style="font-size:1.15rem;">✦ General Life Prediction ✦</div>
+        <div class="life-pred-intro">Based on your Lagna (${data.lagnaRashi}), Moon Sign (${data.moonRashi}), Nakshatra (${data.nakshatra}), and ${data.currentDasha} Mahadasha</div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">🧠</span> Character & Personality</div>
+          <div class="life-pred-body">${data.lifePrediction.character}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">🌟</span> Happiness & Fulfillment</div>
+          <div class="life-pred-body">${data.lifePrediction.happiness}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">🏡</span> Lifestyle</div>
+          <div class="life-pred-body">${data.lifePrediction.lifestyle}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">💼</span> Career & Profession</div>
+          <div class="life-pred-body">${data.lifePrediction.career}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">❤️</span> Love & Relationships</div>
+          <div class="life-pred-body">${data.lifePrediction.relationships}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">💰</span> Finance & Wealth</div>
+          <div class="life-pred-body">${data.lifePrediction.finance}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">🏥</span> Health & Wellness</div>
+          <div class="life-pred-body">${data.lifePrediction.health}</div>
+        </div>
+
+        <div class="life-pred-card">
+          <div class="life-pred-heading"><span class="life-pred-icon">🪐</span> Current Dasha Influence (${data.currentDasha})</div>
+          <div class="life-pred-body">${data.lifePrediction.dashaInfluence}</div>
+        </div>
+      </div>
+      ` : ''}
+
+      <!-- Remedies -->
+      <div class="vedic-section">
+        <div class="vedic-section-title">Vedic Remedies</div>
+        <div class="prediction-remedy"><strong>Rashi Lord (${data.moonLord}) Remedy:</strong> ${data.remedy}</div>
+        ${data.dashaRemedy ? `<div class="prediction-remedy" style="margin-top:0.4rem;"><strong>Dasha Lord (${data.currentDasha}) Remedy:</strong> ${data.dashaRemedy}</div>` : ''}
+      </div>
+    `;
+
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderError(message) {
+    resultEl.classList.add('is-visible');
+    resultEl.innerHTML = `<div class="prediction-text" style="color:var(--accent);">${message}</div>`;
+  }
+
+  kundliForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Calculating Vedic Chart...';
+    resultEl.classList.remove('is-visible');
+    resultEl.innerHTML = '';
+
+    const payload = {
+      fullName: document.getElementById('fullName').value.trim(),
+      gender: document.getElementById('gender').value,
+      dob: document.getElementById('dob').value,
+      tob: document.getElementById('tob').value,
+      birthPlace: document.getElementById('birthPlace').value.trim(),
+      birthLat: selectedCityLat,
+      birthLon: selectedCityLon
+    };
+
+    try {
+      const response = await fetch('/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        throw new Error(errorBody.error || 'Unable to generate Vedic kundli right now.');
+      }
+
+      const data = await response.json();
+      renderPrediction(data);
+    } catch (error) {
+      renderError(error.message || 'Unable to generate Vedic kundli right now.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '✦ Generate Kundli';
+    }
+  });
+
+  /* ═══════════════════════════════════════════════
+     CITY AUTOCOMPLETE
+     ═══════════════════════════════════════════════ */
+  let selectedCityLat = null;
+  let selectedCityLon = null;
+  let searchTimeout = null;
+  const birthPlaceInput = document.getElementById('birthPlace');
+  const cityDropdown = document.getElementById('city-dropdown');
+
+  function selectCity(name, lat, lon) {
+    birthPlaceInput.value = name;
+    selectedCityLat = lat;
+    selectedCityLon = lon;
+    cityDropdown.classList.remove('open');
+    cityDropdown.innerHTML = '';
+  }
+
+  birthPlaceInput.addEventListener('input', () => {
+    const query = birthPlaceInput.value.trim();
+    selectedCityLat = null;
+    selectedCityLon = null;
+
+    if (query.length < 2) {
+      cityDropdown.classList.remove('open');
+      cityDropdown.innerHTML = '';
+      return;
+    }
+
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(async () => {
+      cityDropdown.innerHTML = '<div class="autocomplete-loading">Searching...</div>';
+      cityDropdown.classList.add('open');
+
+      try {
+        const res = await fetch(`/api/cities?q=${encodeURIComponent(query)}`);
+        const cities = await res.json();
+
+        if (cities.length === 0) {
+          cityDropdown.innerHTML = '<div class="autocomplete-loading">No cities found</div>';
+          return;
+        }
+
+        cityDropdown.innerHTML = cities.map((c, i) => `
+          <div class="autocomplete-item" data-name="${c.name}" data-lat="${c.lat}" data-lon="${c.lon}">
+            <div class="autocomplete-city">${c.name}</div>
+            <div class="autocomplete-detail">${c.display}</div>
+          </div>
+        `).join('');
+
+        cityDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+          item.addEventListener('click', () => {
+            selectCity(item.dataset.name, parseFloat(item.dataset.lat), parseFloat(item.dataset.lon));
+          });
+        });
+      } catch (err) {
+        cityDropdown.innerHTML = '<div class="autocomplete-loading">Search failed</div>';
+      }
+    }, 300);
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.autocomplete-wrapper')) {
+      cityDropdown.classList.remove('open');
+    }
+  });
+
+  // Keyboard navigation
+  birthPlaceInput.addEventListener('keydown', (e) => {
+    const items = cityDropdown.querySelectorAll('.autocomplete-item');
+    if (!items.length) return;
+    const focused = cityDropdown.querySelector('.autocomplete-item.focused');
+    let idx = Array.from(items).indexOf(focused);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (focused) focused.classList.remove('focused');
+      idx = (idx + 1) % items.length;
+      items[idx].classList.add('focused');
+      items[idx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (focused) focused.classList.remove('focused');
+      idx = idx <= 0 ? items.length - 1 : idx - 1;
+      items[idx].classList.add('focused');
+      items[idx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && focused) {
+      e.preventDefault();
+      selectCity(focused.dataset.name, parseFloat(focused.dataset.lat), parseFloat(focused.dataset.lon));
+    }
+  });
+
+  /* ═══════════════════════════════════════════════
+     HOROSCOPE SECTION
+     ═══════════════════════════════════════════════ */
+  const horoscopeTemplates = {
+    Today: 'The Graha transits today favour focused action and inner discipline. Avoid impulsive decisions during Rahu Kaal. Pay attention to your Dasha lord\'s significations for optimal timing.',
+    Tomorrow: 'Moon transit shifts to the next Nakshatra — expect change in emotional tone. Good for communication after midday. Meditate during Brahma Muhurta for clarity.',
+    'This Week': 'Strong week for Dasha-aligned activities. Prioritize tasks related to your current Mahadasha lord\'s significations. Financial matters improve after midweek.',
+    'Weekly Love': 'Venus transit influences relationships. Practice Sattvic communication — honest, calm, and compassionate. Couples benefit from shared spiritual activities.',
+    'This Month': 'Planetary transits this month support long-term planning. Consult your Dasha chart for optimal timing. New opportunities arise around the Full Moon period.',
+    'Year 2026': 'Jupiter and Saturn transits in 2026 bring structural growth. A year for karmic progress and steady spiritual evolution. Major life changes likely near equinox periods.'
+  };
+
+  const planetGuidance = {
+    Sun: 'Surya is strong today — leadership, authority, and government matters are favored. Offer Arghya at sunrise for maximum benefit.',
+    Moon: 'Chandra influences emotions and mental peace. Favorable for travel, creativity, and nurturing relationships. Wear white or silver today.',
+    Mercury: 'Budh governs intellect and communication. Good for studies, business deals, and writing. Avoid hasty decisions and double-check contracts.',
+    Venus: 'Shukra brings harmony, beauty, and material comfort. Worship Goddess Lakshmi for enhanced blessings. Good day for arts and romance.',
+    Mars: 'Mangal energy is high — channel into disciplined action, exercise, and property matters. Avoid unnecessary conflict and heated arguments.',
+    Jupiter: 'Guru favors wisdom, spiritual growth, and expansion. Ideal time for learning and teaching. Wear yellow and donate turmeric on Thursday.',
+    Saturn: 'Shani demands discipline, patience, and service. Karmic lessons are active. Donate on Saturdays. Help the elderly and underprivileged.',
+    Rahu: 'Rahu amplifies worldly ambitions. Be cautious of illusions and verify opportunities before committing. Avoid intoxicants and deception.',
+    Ketu: 'Ketu promotes spiritual liberation and detachment. Meditation and introspection are highly favored today. Practice mindfulness and gratitude.'
+  };
+
+  function highlightSelected(nodes, selected) {
+    nodes.forEach((node) => node.classList.remove('clickable-active'));
+    if (selected) selected.classList.add('clickable-active');
+  }
+
+  const horoTabs = Array.from(document.querySelectorAll('.horo-tab'));
+  const horoCards = Array.from(document.querySelectorAll('.horo-card'));
+  const horoResult = document.getElementById('horo-result');
+  let activeHoroPeriod = 'Today';
+
+  horoTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.horo-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeHoroPeriod = tab.textContent.trim();
+      const activeSignCard = document.querySelector('.horo-card.clickable-active') || horoCards[0];
+      if (activeSignCard) activeSignCard.click();
+    });
+  });
+
+  horoCards.forEach((card) => {
+    card.addEventListener('click', (event) => {
+      event.preventDefault();
+      highlightSelected(horoCards, card);
+      const sign = card.querySelector('.horo-sign-name')?.textContent?.trim() || 'Your Rashi';
+      const dateRange = card.querySelector('.horo-sign-date')?.textContent?.trim() || '';
+      const detail = horoscopeTemplates[activeHoroPeriod] || horoscopeTemplates.Today;
+      horoResult.style.display = 'block';
+      horoResult.innerHTML = `<h3>${sign} Rashi • ${activeHoroPeriod}</h3><p>${detail} Sidereal period: ${dateRange}.</p>`;
+    });
+  });
+
+  /* ═══════════════════════════════════════════════
+     ZODIAC BAR (scroll to horoscope & select sign)
+     ═══════════════════════════════════════════════ */
+  const zodiacMap = {
+    'Aries': 0, 'Taurus': 1, 'Gemini': 2, 'Cancer': 3,
+    'Leo': 4, 'Virgo': 5, 'Libra': 6, 'Scorpio': 7,
+    'Sagittarius': 8, 'Capricorn': 9, 'Aquarius': 10, 'Pisces': 11
+  };
+  document.querySelectorAll('.zodiac-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      const signName = chip.querySelector('.zodiac-name')?.textContent?.trim();
+      const idx = zodiacMap[signName];
+      if (idx !== undefined && horoCards[idx]) {
+        document.getElementById('horoscope-section').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => horoCards[idx].click(), 400);
+      }
+    });
+  });
+
+  /* ═══════════════════════════════════════════════
+     PLANET CHIPS
+     ═══════════════════════════════════════════════ */
+  const planetChips = Array.from(document.querySelectorAll('.planet-chip'));
+  const planetResult = document.getElementById('planet-result');
+  planetChips.forEach((chip) => {
+    chip.addEventListener('click', (event) => {
+      event.preventDefault();
+      highlightSelected(planetChips, chip);
+      const name = chip.querySelector('.planet-name')?.textContent?.trim() || 'Graha';
+      const pos = chip.querySelector('.planet-pos')?.textContent?.trim() || '';
+      const insight = planetGuidance[name] || 'This Graha\'s current transit supports awareness and better timing in daily decisions.';
+      planetResult.style.display = 'block';
+      planetResult.innerHTML = `<h3>${name} • ${pos} (Sidereal)</h3><p>${insight}</p>`;
+    });
+  });
+
+  /* ═══════════════════════════════════════════════
+     TOOL CARDS & SERVICE CARDS
+     ═══════════════════════════════════════════════ */
+  function digitSum(value) {
+    return value.replace(/\D/g, '').split('').reduce((acc, n) => acc + Number(n), 0);
+  }
+
+  const toolCards = Array.from(document.querySelectorAll('.tool-card'));
+  const serviceCards = Array.from(document.querySelectorAll('.service-card'));
+  const toolResult = document.getElementById('tool-result');
+
+  function renderToolResult(title, message) {
+    toolResult.style.display = 'block';
+    toolResult.innerHTML = `<h3>${title}</h3><p>${message}</p>`;
+  }
+
+  function computeToolMessage(toolName) {
+    const fullName = document.getElementById('fullName')?.value?.trim() || 'You';
+    const dob = document.getElementById('dob')?.value || '';
+    const tob = document.getElementById('tob')?.value || '';
+    const place = document.getElementById('birthPlace')?.value?.trim() || 'your city';
+    const hour = tob ? Number(tob.split(':')[0]) : 6;
+    const vedicSigns = ['Mesha', 'Vrishabha', 'Mithuna', 'Karka', 'Simha', 'Kanya', 'Tula', 'Vrishchika', 'Dhanu', 'Makara', 'Kumbha', 'Meena'];
+    const month = dob ? Number(dob.split('-')[1]) : 1;
+
+    if (toolName === 'Ascendant Calculator')
+      return `${fullName}, your estimated Vedic Lagna (Ascendant) is ${vedicSigns[hour % 12]} based on birth time ${tob || '06:00'}. For precise results, generate your full Kundli above.`;
+    if (toolName === 'Moon Sign Calculator')
+      return `Estimated Chandra Rashi: ${vedicSigns[(month + 4) % 12]} (sidereal). For the exact Rashi, provide precise birth time and place in the Kundli form.`;
+    if (toolName === 'Numerology Calculator') {
+      const lifePath = dob ? ((digitSum(dob) - 1) % 9) + 1 : 5;
+      return `Your estimated Moolank (life path) number is ${lifePath}. This connects to Vedic numerology and its corresponding Graha influence.`;
+    }
+    if (toolName === 'Love Compatibility') {
+      const score = ((digitSum(fullName || '11') + month + hour) % 41) + 60;
+      return `Vedic compatibility (Guna Milan) preview: ${score}% match potential. Full Ashtakoot matching requires both partners' birth details.`;
+    }
+    if (toolName === 'Sunrise & Sunset')
+      return `For ${place}: Brahma Muhurta ~04:30 AM, Sunrise 06:14 AM, Sunset 06:49 PM (IST). Best for Surya Arghya and morning Sandhya.`;
+    if (toolName === 'Choghadiya')
+      return 'Shubh Choghadiya today: 07:30–09:00, 12:15–01:45, 04:30–06:00. Avoid Rahu Kaal and Yamaghanta windows for auspicious work.';
+    return 'Instant Vedic result generated. Fill birth details in the Kundli form above for a fully personalized report.';
+  }
+
+  toolCards.forEach((card) => {
+    card.addEventListener('click', (event) => {
+      event.preventDefault();
+      highlightSelected(toolCards, card);
+      const name = card.querySelector('.tool-title')?.textContent?.trim() || 'Calculator';
+      renderToolResult(name, computeToolMessage(name));
+    });
+  });
+
+  serviceCards.forEach((card) => {
+    card.addEventListener('click', (event) => {
+      event.preventDefault();
+      highlightSelected(serviceCards, card);
+      const name = card.querySelector('.service-name')?.textContent?.trim() || 'Report';
+      // "Free Kundli" service scrolls to the Kundli form
+      if (name === 'Free Kundli') {
+        document.getElementById('kundli-section').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      renderToolResult(`${name}`, computeToolMessage(name));
+    });
+  });
+
+  /* ═══════════════════════════════════════════════
+     ASTROLOGER CALL/CHAT BUTTONS
+     ═══════════════════════════════════════════════ */
+  document.querySelectorAll('.astro-btn-call').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.closest('.astro-card')?.querySelector('.astro-name')?.textContent || 'Astrologer';
+      alert(`Calling ${name}... (Feature coming soon)`);
+    });
+  });
+  document.querySelectorAll('.astro-btn-chat').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.closest('.astro-card')?.querySelector('.astro-name')?.textContent || 'Astrologer';
+      alert(`Opening chat with ${name}... (Feature coming soon)`);
+    });
+  });
+  /* ═══════════════════════════════════════════════
+     Lenis Smooth Scroll Init
+     ═══════════════════════════════════════════════ */
+  if (typeof Lenis !== 'undefined') {
+    window.lenis = new Lenis({
+      duration: 1.4,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.8,
+      touchMultiplier: 1.5,
+    });
+
+    function raf(time) {
+      window.lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+</script>
+</body>
+</html>
