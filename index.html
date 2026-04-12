@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1277,6 +1277,124 @@
     .section-header h2 { font-size: 1.35rem; }
     .section-header p { font-size: 0.95rem; }
   }
+
+  /* ── Hamburger menu toggle for mobile ── */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid rgba(201,150,10,0.35);
+    border-radius: 8px;
+    color: var(--gold-light);
+    font-size: 1.4rem;
+    padding: 0.3rem 0.55rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.2s;
+  }
+  .nav-toggle:hover { background: rgba(201,150,10,0.12); }
+
+  @media (max-width: 960px) {
+    .nav-toggle { display: block; grid-area: toggle; }
+    nav {
+      grid-template-columns: 1fr auto auto;
+      grid-template-areas:
+        "logo toggle contact";
+    }
+    .nav-links {
+      grid-area: links;
+      grid-column: 1 / -1;
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 0.5rem 0.75rem; }
+  }
+  @media (max-width: 520px) {
+    nav {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "logo toggle"
+        "contact contact"
+        "links links";
+    }
+  }
+
+  /* ── Zodiac bar horizontal scroll on mobile ── */
+  @media (max-width: 768px) {
+    .zodiac-bar {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: flex-start;
+      padding-bottom: 0.6rem;
+    }
+    .zodiac-bar::-webkit-scrollbar { display: none; }
+    .zodiac-chip { flex-shrink: 0; }
+  }
+
+  /* ── Planet row horizontal scroll on mobile ── */
+  @media (max-width: 768px) {
+    .planets-row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: flex-start;
+      padding-bottom: 0.5rem;
+    }
+    .planets-row::-webkit-scrollbar { display: none; }
+    .planet-chip { flex-shrink: 0; }
+  }
+
+  /* ── Horoscope tabs horizontal scroll on mobile ── */
+  @media (max-width: 520px) {
+    .horo-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 0.3rem;
+    }
+    .horo-tabs::-webkit-scrollbar { display: none; }
+    .horo-tab { flex-shrink: 0; white-space: nowrap; }
+  }
+
+  /* ── Prediction result mobile-friendly ── */
+  @media (max-width: 768px) {
+    .prediction-result { padding: 1rem; border-radius: 12px; }
+    .prediction-title { font-size: 0.85rem; }
+    .prediction-meta { font-size: 0.75rem; word-break: break-word; }
+    .prediction-text { font-size: 0.85rem; line-height: 1.6; }
+    .vedic-grid { grid-template-columns: 1fr; }
+    .vedic-item { padding: 0.45rem 0.6rem; }
+    .kundli-chart-svg { max-width: 280px; }
+    .life-pred-body { font-size: 0.82rem; text-align: left; }
+    .life-pred-heading { font-size: 0.85rem; }
+  }
+
+  /* ── Form tabs stacking on very small screens ── */
+  @media (max-width: 400px) {
+    .form-tabs { flex-direction: column; border-radius: 12px; }
+    .form-tab { border-radius: 10px; }
+    .hero h1 { font-size: 1.6rem; }
+    .hero-sub { font-size: 0.92rem; }
+    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.12em; }
+    .section { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .kundli-card { padding: 1rem; }
+    .stat-number { font-size: 1.4rem; }
+  }
+
+  /* ── Ensure touch targets are at least 44px ── */
+  @media (pointer: coarse) {
+    .zodiac-chip, .planet-chip, .horo-card, .service-card, .tool-card {
+      min-height: 44px;
+    }
+    .horo-tab, .form-tab { min-height: 40px; }
+    .astro-btn { min-height: 42px; display: flex; align-items: center; justify-content: center; }
+  }
 </style>
 </head>
 <body id="top">
@@ -1286,7 +1404,8 @@
   <a href="#top" class="nav-logo">
     <span class="nav-logo-symbol">☽</span> Astro Brahmvid
   </a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#horoscope-section">Horoscope</a></li>
     <li><a href="#kundli-section">Kundli</a></li>
     <li><a href="#panchang-section">Panchang</a></li>
@@ -1693,6 +1812,23 @@
     document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
   }
+
+  /* Hamburger menu toggle */
+  (function() {
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.textContent = '☰';
+      });
+    });
+  })();
 
   /* Smooth-scroll links (uses Lenis) */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
