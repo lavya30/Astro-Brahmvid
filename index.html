@@ -39,6 +39,7 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
+  img, video, iframe { max-width: 100%; height: auto; }
 
   /* HERO ORANGE-YELLOW BACKGROUND */
   .hero-bg {
@@ -1116,15 +1117,6 @@
   }
 
 
-  @media (max-width: 768px) {
-    .horo-grid { grid-template-columns: repeat(3, 1fr); }
-    .two-col, .two-col-65 { grid-template-columns: 1fr; }
-    .stats-banner { grid-template-columns: repeat(2, 1fr); }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    nav .nav-links { display: none; }
-    .vedic-grid { grid-template-columns: 1fr; }
-  }
-
   /* Nav contact info */
   .nav-contact {
     display: flex;
@@ -1192,6 +1184,98 @@
     .nav-contact-text { display: none; }
     .nav-contact { gap: 0.25rem; padding: 0.35rem 0.6rem; }
     .nav-contact-sep { display: none; }
+  }
+  @media (max-width: 1100px) {
+    nav { padding: 0 1.25rem; }
+    .hero, .section { padding-left: 1.25rem; padding-right: 1.25rem; }
+  }
+  @media (max-width: 960px) {
+    nav {
+      height: auto;
+      min-height: 80px;
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "logo contact"
+        "links links";
+      gap: 0.7rem;
+    }
+    .nav-logo { grid-area: logo; }
+    .nav-contact { grid-area: contact; margin-left: 0; }
+    .nav-links {
+      grid-area: links;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .nav-links a { padding: 0.35rem 0.6rem; }
+    .hero { grid-template-columns: 1fr; gap: 1.75rem; padding-top: 2rem; }
+    .hero-text { text-align: center; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .hero-buttons { justify-content: center; margin-bottom: 2rem; }
+    .horo-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .two-col-65 { grid-template-columns: 1fr; gap: 1.25rem; }
+    .stats-banner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .vedic-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .hero, .section { padding-left: 1rem; padding-right: 1rem; }
+    .hero h1 { font-size: clamp(1.8rem, 8.8vw, 2.7rem); }
+    .hero-sub { font-size: 1.02rem; }
+    .btn-primary, .btn-outline { width: 100%; text-align: center; }
+    .audio-play-btn {
+      right: 0.55rem;
+      bottom: 2rem;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.72rem;
+    }
+    .kundli-card, .panchang-card { padding: 1.2rem; border-radius: 14px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-tabs { flex-wrap: wrap; border-radius: 14px; }
+    .form-tab { min-width: 0; font-size: 0.78rem; }
+    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .horo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .astro-grid { grid-template-columns: 1fr; }
+    .tools-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panchang-header { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
+    .panchang-grid { grid-template-columns: 1fr; }
+    .mag-item { flex-direction: column; gap: 0.5rem; }
+    .stats-banner { padding: 1.2rem; gap: 1rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+    .footer-brand p { max-width: none; }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .inline-result { padding: 1rem; }
+    .dasha-entry { flex-wrap: wrap; gap: 0.35rem 0.7rem; }
+    .dasha-planet, .dasha-years { min-width: auto; }
+  }
+  @media (max-width: 520px) {
+    nav {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "logo"
+        "contact"
+        "links";
+    }
+    .nav-logo { font-size: 1.15rem; }
+    .nav-contact {
+      width: 100%;
+      align-items: flex-start;
+    }
+    .nav-contact-row { width: 100%; justify-content: flex-start; }
+    .zodiac-chip { min-width: 58px; padding: 0.45rem 0.55rem; }
+    .zodiac-symbol { font-size: 1.2rem; }
+    .zodiac-name { font-size: 0.6rem; }
+    .services-grid, .tools-strip { grid-template-columns: 1fr; }
+    .horo-grid { grid-template-columns: 1fr; }
+    .stats-banner { grid-template-columns: 1fr; }
+    .section-header h2 { font-size: 1.35rem; }
+    .section-header p { font-size: 0.95rem; }
   }
 </style>
 </head>
