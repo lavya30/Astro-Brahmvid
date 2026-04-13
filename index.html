@@ -1699,8 +1699,8 @@
       <div class="panchang-card">
         <div class="panchang-header">
           <div>
-            <div class="panchang-date" id="panchang-date">Saturday, 11 April 2026</div>
-            <div class="panchang-location">📍 Mumbai, Maharashtra</div>
+            <div class="panchang-date" id="panchang-date">Loading...</div>
+            <div class="panchang-location">📍 <span id="panchang-location">New Delhi, India</span></div>
           </div>
           <div style="text-align:right;">
             <div style="font-size:2rem;">☽</div>
@@ -1709,35 +1709,35 @@
         <div class="panchang-grid">
           <div class="panchang-item">
             <span class="panchang-label">Tithi</span>
-            <span class="panchang-value">Chaturdashi</span>
+            <span class="panchang-value" id="panchang-tithi">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Nakshatra</span>
-            <span class="panchang-value">Revati</span>
+            <span class="panchang-value" id="panchang-nakshatra">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Yoga</span>
-            <span class="panchang-value">Shubha</span>
+            <span class="panchang-value" id="panchang-yoga">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Karana</span>
-            <span class="panchang-value">Vishti (Bhadra)</span>
+            <span class="panchang-value" id="panchang-karana">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Sunrise</span>
-            <span class="panchang-value">06:14 AM</span>
+            <span class="panchang-value" id="panchang-sunrise">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Sunset</span>
-            <span class="panchang-value">06:49 PM</span>
+            <span class="panchang-value" id="panchang-sunset">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Rahu Kaal</span>
-            <span class="panchang-value" style="color:#E8537A;">09:00 – 10:30 AM</span>
+            <span class="panchang-value" style="color:#E8537A;" id="panchang-rahukaal">Loading...</span>
           </div>
           <div class="panchang-item">
             <span class="panchang-label">Moon Sign</span>
-            <span class="panchang-value">Pisces ♓</span>
+            <span class="panchang-value" id="panchang-moonsign">Loading...</span>
           </div>
         </div>
         <a href="#" style="display:block;margin-top:1.2rem;text-align:center;font-size:0.8rem;color:var(--gold);text-decoration:none;opacity:0.8;">View Full Panchang →</a>
@@ -2511,6 +2511,36 @@
       alert(`Opening chat with ${name}... (Feature coming soon)`);
     });
   });
+  /* ═══════════════════════════════════════════════
+     LIVE PANCHANG — Fetch from /api/panchang
+     ═══════════════════════════════════════════════ */
+  (async function loadPanchang() {
+    try {
+      const res = await fetch('/api/panchang');
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      const el = (id) => document.getElementById(id);
+      if (data.date)      el('panchang-date').textContent = data.date;
+      if (data.location)  el('panchang-location').textContent = data.location;
+      if (data.tithi)     el('panchang-tithi').textContent = data.tithi;
+      if (data.nakshatra) el('panchang-nakshatra').textContent = data.nakshatra;
+      if (data.yoga)      el('panchang-yoga').textContent = data.yoga;
+      if (data.karana)    el('panchang-karana').textContent = data.karana;
+      if (data.sunrise)   el('panchang-sunrise').textContent = data.sunrise;
+      if (data.sunset)    el('panchang-sunset').textContent = data.sunset;
+      if (data.rahuKaal)  el('panchang-rahukaal').textContent = data.rahuKaal;
+      if (data.moonSign)  el('panchang-moonsign').textContent = data.moonSign;
+    } catch (err) {
+      console.warn('[Panchang] Could not load live data:', err);
+      // Show today's date at minimum
+      const now = new Date();
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      document.getElementById('panchang-date').textContent =
+        `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+    }
+  })();
+
   /* ═══════════════════════════════════════════════
      Lenis Smooth Scroll Init
      ═══════════════════════════════════════════════ */

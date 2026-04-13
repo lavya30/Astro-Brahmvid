@@ -125,7 +125,13 @@ const KARANAS = [
   'Shakuni','Chatushpada','Nagava','Kimstughna'
 ];
 
-// 15 Tithis
+// 30 Tithis (Shukla Paksha 1-15, Krishna Paksha 1-15)
+const TITHIS_NAMES = [
+  'Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami',
+  'Shashthi','Saptami','Ashtami','Navami','Dashami',
+  'Ekadashi','Dwadashi','Trayodashi','Chaturdashi'
+];
+// Legacy array kept for birth-chart compatibility
 const TITHIS = [
   'Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami',
   'Shashthi','Saptami','Ashtami','Navami','Dashami',
@@ -379,13 +385,53 @@ function currentDasha(dashas) {
    ═══════════════════════════════════════════════ */
 function computePanchangElements(sunSidLon, moonSidLon) {
   const diff = normDeg(moonSidLon - sunSidLon);
-  const tithiIdx = Math.floor(diff / 12) % 15;
-  const karanaIdx = Math.floor(diff / 6) % 11;
-  const yogaIdx = Math.floor((normDeg(sunSidLon) + normDeg(moonSidLon)) / (360 / 27)) % 27;
+
+  // ── Tithi (30 tithis in a lunar month) ──
+  // Each tithi = 12° of Moon-Sun elongation
+  const tithiNum = Math.floor(diff / 12);  // 0-29
+  let tithiName;
+  let paksha;
+  if (tithiNum < 15) {
+    // Shukla Paksha (waxing)
+    paksha = 'Shukla';
+    if (tithiNum === 14) {
+      tithiName = 'Purnima';
+    } else {
+      tithiName = TITHIS_NAMES[tithiNum];
+    }
+  } else {
+    // Krishna Paksha (waning)
+    paksha = 'Krishna';
+    if (tithiNum === 29) {
+      tithiName = 'Amavasya';
+    } else {
+      tithiName = TITHIS_NAMES[tithiNum - 15];
+    }
+  }
+
+  // ── Karana (60 karanas per lunar month, each = 6° of elongation) ──
+  // 4 fixed karanas: Shakuni (57), Chatushpada (58), Nagava (59), Kimstughna (0)
+  // 7 repeating karanas cycle through positions 1-56
+  const karanaNum = Math.floor(diff / 6);  // 0-59
+  const REPEATING_KARANAS = ['Bava','Balava','Kaulava','Taitila','Garaja','Vanija','Vishti'];
+  const FIXED_KARANAS = { 0: 'Kimstughna', 57: 'Shakuni', 58: 'Chatushpada', 59: 'Nagava' };
+  let karanaName;
+  if (FIXED_KARANAS[karanaNum] !== undefined) {
+    karanaName = FIXED_KARANAS[karanaNum];
+  } else {
+    karanaName = REPEATING_KARANAS[(karanaNum - 1) % 7];
+  }
+  if (karanaName === 'Vishti') karanaName = 'Vishti (Bhadra)';
+
+  // ── Yoga (27 yogas) ──
+  const yogaIdx = Math.floor(normDeg(sunSidLon + moonSidLon) / (360 / 27)) % 27;
 
   return {
-    tithi: TITHIS[tithiIdx],
-    karana: KARANAS[karanaIdx],
+    tithi: tithiName,
+    tithiFull: paksha + ' ' + tithiName,
+    paksha,
+    tithiNum: tithiNum + 1,
+    karana: karanaName,
     yoga: YOGAS[yogaIdx]
   };
 }
@@ -1044,6 +1090,108 @@ const server = http.createServer(async (req, res) => {
     nominatimReq.on('error', () => sendJson(res, 200, localMatches));
     nominatimReq.setTimeout(3000, () => { nominatimReq.destroy(); sendJson(res, 200, localMatches); });
     return;
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/panchang') {
+    try {
+      if (!Astronomy) {
+        sendJson(res, 500, { error: 'Astronomy engine not available' });
+        return;
+      }
+
+      // Current IST time
+      const nowUTC = new Date();
+      const istOffset = 5.5 * 60 * 60 * 1000;
+      const nowIST = new Date(nowUTC.getTime() + istOffset);
+
+      // Default location: Delhi
+      const geoLat = 28.6139;
+      const geoLon = 77.2090;
+
+      const astroTime = Astronomy.MakeTime(nowUTC);
+      const jd = 2451545.0 + astroTime.ut;
+      const ayanamsa = lahiriAyanamsa(jd);
+
+      // Planet positions
+      const tropPositions = getPlanetPositions(astroTime);
+      const sidSun = normDeg(tropPositions.Sun - ayanamsa);
+      const sidMoon = normDeg(tropPositions.Moon - ayanamsa);
+
+      // Panchang elements
+      const panchang = computePanchangElements(sidSun, sidMoon);
+
+      // Moon nakshatra & rashi
+      const moonNakIdx = nakshatraIndex(sidMoon);
+      const moonNakshatra = NAKSHATRAS[moonNakIdx];
+      const moonRashiIdx = rashiIndex(sidMoon);
+      const moonRashi = RASHIS[moonRashiIdx];
+
+      // Sunrise & Sunset for Delhi
+      let sunriseStr = '06:10 AM';
+      let sunsetStr = '06:45 PM';
+      try {
+        const observer = new Astronomy.Observer(geoLat, geoLon, 0);
+        const todayStart = new Date(Date.UTC(nowUTC.getUTCFullYear(), nowUTC.getUTCMonth(), nowUTC.getUTCDate(), 0, 0, 0));
+        const searchStart = Astronomy.MakeTime(todayStart);
+        const sunrise = Astronomy.SearchRiseSet('Sun', observer, +1, searchStart, 1);
+        const sunset = Astronomy.SearchRiseSet('Sun', observer, -1, searchStart, 1);
+        if (sunrise) {
+          const srIST = new Date(sunrise.date.getTime() + istOffset);
+          const srH = srIST.getUTCHours();
+          const srM = srIST.getUTCMinutes();
+          const srAP = srH >= 12 ? 'PM' : 'AM';
+          sunriseStr = `${String(srH > 12 ? srH - 12 : srH || 12).padStart(2, '0')}:${String(srM).padStart(2, '0')} ${srAP}`;
+        }
+        if (sunset) {
+          const ssIST = new Date(sunset.date.getTime() + istOffset);
+          const ssH = ssIST.getUTCHours();
+          const ssM = ssIST.getUTCMinutes();
+          const ssAP = ssH >= 12 ? 'PM' : 'AM';
+          sunsetStr = `${String(ssH > 12 ? ssH - 12 : ssH || 12).padStart(2, '0')}:${String(ssM).padStart(2, '0')} ${ssAP}`;
+        }
+      } catch (e) {
+        console.error('[Panchang] Sunrise/sunset calc error:', e.message);
+      }
+
+      // Rahu Kaal (based on weekday — traditional IST timings)
+      const dayOfWeek = nowIST.getUTCDay(); // 0=Sun
+      const RAHU_KAAL = [
+        '04:30 – 06:00 PM', // Sunday
+        '07:30 – 09:00 AM', // Monday
+        '03:00 – 04:30 PM', // Tuesday
+        '12:00 – 01:30 PM', // Wednesday
+        '01:30 – 03:00 PM', // Thursday
+        '10:30 – 12:00 PM', // Friday
+        '09:00 – 10:30 AM'  // Saturday
+      ];
+
+      // Formatted date in IST
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const dateStr = `${dayNames[dayOfWeek]}, ${nowIST.getUTCDate()} ${monthNames[nowIST.getUTCMonth()]} ${nowIST.getUTCFullYear()}`;
+
+      sendJson(res, 200, {
+        date: dateStr,
+        location: 'New Delhi, India',
+        tithi: panchang.tithiFull,
+        tithiShort: panchang.tithi,
+        paksha: panchang.paksha,
+        nakshatra: moonNakshatra.name,
+        yoga: panchang.yoga,
+        karana: panchang.karana,
+        sunrise: sunriseStr,
+        sunset: sunsetStr,
+        rahuKaal: RAHU_KAAL[dayOfWeek],
+        moonSign: `${moonRashi.name.split(' (')[1]?.replace(')', '') || moonRashi.name} ${moonRashi.symbol}`,
+        moonRashi: moonRashi.name,
+        ayanamsa: ayanamsa.toFixed(4)
+      });
+      return;
+    } catch (err) {
+      console.error('[/api/panchang ERROR]', err.stack || err.message || err);
+      sendJson(res, 500, { error: 'Failed to compute panchang' });
+      return;
+    }
   }
 
   if (req.method === 'GET' && url.pathname === '/health') {
