@@ -1,11 +1,90 @@
+# ═══════════════════════════════════════════════
+#  Astro Brahmvid — robots.txt (SEO-Optimized)
+# ═══════════════════════════════════════════════
+
+# ── Global Rules (all crawlers) ──
 User-agent: *
 Allow: /
+Allow: /index.html
 
-# Keep sensitive or duplicate utility endpoints out of indexing.
+# Block API endpoints (JSON responses, not user-facing pages)
+Disallow: /api/
+Disallow: /health
+
+# Block server/build artifacts
 Disallow: /node_modules/
-Disallow: /private/
-Disallow: /tmp/
-Disallow: /cgi-bin/
+Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /server.js
+Disallow: /package.json
+Disallow: /package-lock.json
 
-# Update this to your live domain before deploy.
-Sitemap: https://your-domain.com/sitemap.xml
+# Block raw media files from search index (they load on the page itself)
+Disallow: /mantra2.mp4
+Disallow: /mantra_audio.mp3
+
+# Polite crawl delay (seconds between requests)
+Crawl-delay: 5
+
+# ── Google (ignores Crawl-delay, but respects other rules) ──
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /health
+Disallow: /node_modules/
+Disallow: /.git/
+
+User-agent: Googlebot-Image
+Allow: /
+
+# ── Bing ──
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /health
+Disallow: /node_modules/
+Disallow: /.git/
+Crawl-delay: 10
+
+# ── Yandex ──
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /health
+Crawl-delay: 10
+
+# ── Block AI training crawlers (protect content) ──
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# ── Block aggressive/unwanted scrapers ──
+User-agent: AhrefsBot
+Crawl-delay: 30
+
+User-agent: SemrushBot
+Crawl-delay: 30
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ── Sitemap ──
+# TODO: Update this URL to your actual production domain
+Sitemap: https://astrobrahmvid.up.railway.app/sitemap.xml
