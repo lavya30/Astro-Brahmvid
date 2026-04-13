@@ -1395,6 +1395,135 @@
     .horo-tab, .form-tab { min-height: 40px; }
     .astro-btn { min-height: 42px; display: flex; align-items: center; justify-content: center; }
   }
+
+  /* ── Mobile Contact Header (visible only on mobile) ── */
+  .mobile-contact-header {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    nav { display: none !important; }
+    .mobile-contact-header {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,11,26,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 1rem;
+    }
+    .mobile-contact-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .mobile-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+    }
+    .mobile-brand-symbol {
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+    .mobile-brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+    }
+    .mobile-contact-links {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .mobile-contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-decoration: none;
+      padding: 0.35rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .mobile-contact-btn.phone {
+      background: rgba(61,189,176,0.12);
+      border: 1px solid rgba(61,189,176,0.35);
+      color: var(--teal);
+    }
+    .mobile-contact-btn.phone:hover {
+      background: rgba(61,189,176,0.25);
+    }
+    .mobile-contact-btn.email {
+      background: rgba(201,150,10,0.1);
+      border: 1px solid rgba(201,150,10,0.3);
+      color: var(--gold-light);
+    }
+    .mobile-contact-btn.email:hover {
+      background: rgba(201,150,10,0.22);
+    }
+    .mobile-contact-btn .mc-icon {
+      font-size: 0.85rem;
+    }
+    .mobile-astrologer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.45rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(201,150,10,0.12);
+    }
+    .mobile-astrologer-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--deep);
+      background: linear-gradient(135deg, var(--gold), #E8A820);
+      flex-shrink: 0;
+    }
+    .mobile-astrologer-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.03em;
+    }
+    .mobile-astrologer-title {
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+    .mobile-contact-details {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      color: var(--soft);
+    }
+    .mobile-contact-details a {
+      color: var(--soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-contact-details a:hover {
+      color: var(--gold-light);
+    }
+    .mobile-contact-details .mc-sep {
+      color: rgba(201,150,10,0.3);
+    }
+  }
 </style>
 </head>
 <body id="top">
@@ -1433,6 +1562,36 @@
     </div>
   </div>
 </nav>
+
+<!-- MOBILE CONTACT HEADER (visible only on mobile) -->
+<div class="mobile-contact-header">
+  <div class="mobile-contact-inner">
+    <a href="#top" class="mobile-brand">
+      <span class="mobile-brand-symbol">☽</span>
+      <span class="mobile-brand-name">Astro Brahmvid</span>
+    </a>
+    <div class="mobile-contact-links">
+      <a href="tel:+918920976178" class="mobile-contact-btn phone" title="Call">
+        <span class="mc-icon">📞</span> Call
+      </a>
+      <a href="https://wa.me/918920976178" target="_blank" class="mobile-contact-btn email" title="WhatsApp">
+        <span class="mc-icon">✦</span> Chat
+      </a>
+    </div>
+  </div>
+  <div class="mobile-astrologer-row">
+    <span class="mobile-astrologer-badge">RG</span>
+    <span class="mobile-astrologer-name">Rajessh Goel</span>
+    <span class="mobile-astrologer-title">• Vedic Astrologer</span>
+    <span class="mc-sep" style="color:rgba(201,150,10,0.3);margin:0 0.15rem;">|</span>
+    <div class="mobile-contact-details">
+      <a href="tel:+918920976178">8920976178</a>
+      <span class="mc-sep">•</span>
+      <a href="mailto:rajeshgoel246@gmail.com">rajeshgoel246@gmail.com</a>
+    </div>
+  </div>
+</div>
+
 
 <!-- HERO BG WRAPPER -->
 <div class="hero-bg">

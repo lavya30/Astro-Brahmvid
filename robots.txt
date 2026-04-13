@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Keep sensitive or duplicate utility endpoints out of indexing.
+Disallow: /node_modules/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+
+# Update this to your live domain before deploy.
+Sitemap: https://your-domain.com/sitemap.xml
