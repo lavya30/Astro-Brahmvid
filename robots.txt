@@ -86,5 +86,4 @@ User-agent: MJ12bot
 Disallow: /
 
 # ── Sitemap ──
-# TODO: Update this URL to your actual production domain
-Sitemap: https://astrobrahmvid.up.railway.app/sitemap.xml
+Sitemap: https://astrobrahmvid.com/sitemap.xml

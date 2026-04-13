@@ -4,7 +4,7 @@
 
   <!-- Main Landing Page -->
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/</loc>
+    <loc>https://astrobrahmvid.com/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -12,49 +12,49 @@
 
   <!-- Section anchors (helps Google understand page structure) -->
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#kundli-section</loc>
+    <loc>https://astrobrahmvid.com/#kundli-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#horoscope-section</loc>
+    <loc>https://astrobrahmvid.com/#horoscope-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#panchang-section</loc>
+    <loc>https://astrobrahmvid.com/#panchang-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#astrology-section</loc>
+    <loc>https://astrobrahmvid.com/#astrology-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#compatibility-section</loc>
+    <loc>https://astrobrahmvid.com/#compatibility-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#calculators-section</loc>
+    <loc>https://astrobrahmvid.com/#calculators-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://astrobrahmvid.up.railway.app/#occult-section</loc>
+    <loc>https://astrobrahmvid.com/#occult-section</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
