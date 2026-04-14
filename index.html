@@ -189,7 +189,7 @@
   .nav-logo {
     font-family: 'Cinzel', serif;
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 900;
     color: var(--gold-light);
     letter-spacing: 0.08em;
     display: flex;
@@ -889,6 +889,38 @@
   .panchang-item { display: flex; flex-direction: column; gap: 0.2rem; }
   .panchang-label { font-size: 0.7rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
   .panchang-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+  .panchang-full-toggle {
+    margin-top: 1.2rem;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--gold);
+    font-size: 0.82rem;
+    text-align: center;
+    opacity: 0.9;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .panchang-full-toggle:hover { opacity: 1; text-decoration: underline; }
+  .panchang-full-details {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .panchang-full-details.open { display: block; }
+  .panchang-full-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .panchang-full-note {
+    margin-top: 0.9rem;
+    font-size: 0.74rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
 
   /* TWO-COL */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
@@ -1246,7 +1278,12 @@
   }
   .nav-contact-item:hover { color: var(--gold-light); }
   .nav-contact-icon { font-size: 0.75rem; }
-  .nav-contact-text { letter-spacing: 0.02em; }
+  .nav-contact-text {
+    letter-spacing: 0.02em;
+    color: #ff2d2d;
+    font-weight: 700;
+    font-size: 0.78rem;
+  }
   .nav-contact-sep { color: rgba(201,150,10,0.3); font-size: 0.7rem; }
   @media (max-width: 768px) {
     .nav-contact-text { display: none; }
@@ -1309,6 +1346,7 @@
     .tools-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .panchang-header { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
     .panchang-grid { grid-template-columns: 1fr; }
+    .panchang-full-grid { grid-template-columns: 1fr; }
     .mag-item { flex-direction: column; gap: 0.5rem; }
     .stats-banner { padding: 1.2rem; gap: 1rem; }
     .footer-grid { grid-template-columns: 1fr; gap: 1.4rem; }
@@ -1499,7 +1537,7 @@
     .mobile-brand-name {
       font-family: 'Cinzel', serif;
       font-size: 1.05rem;
-      font-weight: 700;
+      font-weight: 900;
       color: var(--gold-light);
       letter-spacing: 0.06em;
     }
@@ -1581,12 +1619,14 @@
       color: var(--soft);
     }
     .mobile-contact-details a {
-      color: var(--soft);
+      color: #ff2d2d;
+      font-weight: 700;
+      font-size: 0.75rem;
       text-decoration: none;
       transition: color 0.2s;
     }
     .mobile-contact-details a:hover {
-      color: var(--gold-light);
+      color: #ff4d4d;
     }
     .mobile-contact-details .mc-sep {
       color: rgba(201,150,10,0.3);
@@ -1808,7 +1848,30 @@
             <span class="panchang-value" id="panchang-moonsign">Loading...</span>
           </div>
         </div>
-        <a href="#" style="display:block;margin-top:1.2rem;text-align:center;font-size:0.8rem;color:var(--gold);text-decoration:none;opacity:0.8;">View Full Panchang →</a>
+        <button type="button" id="view-full-panchang" class="panchang-full-toggle">View Full Panchang -&gt;</button>
+        <div id="full-panchang-details" class="panchang-full-details" aria-hidden="true">
+          <div class="panchang-full-grid">
+            <div class="panchang-item">
+              <span class="panchang-label">Tithi (Short)</span>
+              <span class="panchang-value" id="panchang-tithi-short">Loading...</span>
+            </div>
+            <div class="panchang-item">
+              <span class="panchang-label">Paksha</span>
+              <span class="panchang-value" id="panchang-paksha">Loading...</span>
+            </div>
+            <div class="panchang-item">
+              <span class="panchang-label">Moon Rashi</span>
+              <span class="panchang-value" id="panchang-moon-rashi">Loading...</span>
+            </div>
+            <div class="panchang-item">
+              <span class="panchang-label">Ayanamsa (Lahiri)</span>
+              <span class="panchang-value" id="panchang-ayanamsa">Loading...</span>
+            </div>
+          </div>
+          <div class="panchang-full-note">
+            Panchang details are calculated for the current day in IST and based on the configured default location.
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2582,6 +2645,31 @@
   /* ═══════════════════════════════════════════════
      LIVE PANCHANG — Fetch from /api/panchang
      ═══════════════════════════════════════════════ */
+  const fullPanchangState = { isOpen: false };
+
+  function setFullPanchangData(data) {
+    const el = (id) => document.getElementById(id);
+    if (el('panchang-tithi-short')) el('panchang-tithi-short').textContent = data.tithiShort || data.tithi || 'Not available';
+    if (el('panchang-paksha')) el('panchang-paksha').textContent = data.paksha || 'Not available';
+    if (el('panchang-moon-rashi')) el('panchang-moon-rashi').textContent = data.moonRashi || data.moonSign || 'Not available';
+    if (el('panchang-ayanamsa')) el('panchang-ayanamsa').textContent = data.ayanamsa ? `${data.ayanamsa} deg` : 'Not available';
+  }
+
+  (function setupFullPanchangToggle() {
+    const btn = document.getElementById('view-full-panchang');
+    const details = document.getElementById('full-panchang-details');
+    if (!btn || !details) return;
+    btn.addEventListener('click', () => {
+      fullPanchangState.isOpen = !fullPanchangState.isOpen;
+      details.classList.toggle('open', fullPanchangState.isOpen);
+      details.setAttribute('aria-hidden', String(!fullPanchangState.isOpen));
+      btn.textContent = fullPanchangState.isOpen ? 'Hide Full Panchang <-' : 'View Full Panchang ->';
+      if (fullPanchangState.isOpen) {
+        details.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  })();
+
   (async function loadPanchang() {
     try {
       const res = await fetch('/api/panchang');
@@ -2598,6 +2686,7 @@
       if (data.sunset)    el('panchang-sunset').textContent = data.sunset;
       if (data.rahuKaal)  el('panchang-rahukaal').textContent = data.rahuKaal;
       if (data.moonSign)  el('panchang-moonsign').textContent = data.moonSign;
+      setFullPanchangData(data);
     } catch (err) {
       console.warn('[Panchang] Could not load live data:', err);
       // Show today's date at minimum
@@ -2606,6 +2695,10 @@
       const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       document.getElementById('panchang-date').textContent =
         `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+      setFullPanchangData({
+        tithi: document.getElementById('panchang-tithi')?.textContent || '',
+        moonSign: document.getElementById('panchang-moonsign')?.textContent || ''
+      });
     }
   })();
 
